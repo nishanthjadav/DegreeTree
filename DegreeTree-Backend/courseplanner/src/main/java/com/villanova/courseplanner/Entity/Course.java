@@ -1,38 +1,37 @@
 package com.villanova.courseplanner.Entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.springframework.data.neo4j.core.schema.GeneratedValue;
-import org.springframework.data.neo4j.core.schema.Id;
-import org.springframework.data.neo4j.core.schema.Node;
-import org.springframework.data.neo4j.core.schema.Relationship;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
-import java.util.UUID;
-
-@Node("Course")
+@Entity
+@Table(name = "course")
 public class Course {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true, nullable = false)
     private String courseCode;
+
     private String courseName;
     private int credits;
-    private String courseDescription;
 
-    @JsonIgnore // Prevent circular reference during JSON serialization
-    @Relationship(type = "REFERS_TO", direction = Relationship.Direction.INCOMING)
-    private CourseLeaf referredBy;
+    @Column(columnDefinition = "TEXT")
+    private String courseDescription;
 
     public Course() {
     }
 
-    public Course(Long id, String courseCode, String courseName, int credits, String courseDescription, CourseLeaf referredBy) {
+    public Course(Long id, String courseCode, String courseName, int credits, String courseDescription) {
         this.id = id;
         this.courseCode = courseCode;
         this.courseName = courseName;
         this.credits = credits;
         this.courseDescription = courseDescription;
-        this.referredBy = referredBy;
     }
 
     public Long getId() {
@@ -73,14 +72,6 @@ public class Course {
 
     public void setCourseDescription(String courseDescription) {
         this.courseDescription = courseDescription;
-    }
-
-    public CourseLeaf getReferredBy() {
-        return referredBy;
-    }
-
-    public void setReferredBy(CourseLeaf referredBy) {
-        this.referredBy = referredBy;
     }
 
     @Override

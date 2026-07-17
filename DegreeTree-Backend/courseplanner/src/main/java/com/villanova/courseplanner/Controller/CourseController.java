@@ -3,6 +3,7 @@ package com.villanova.courseplanner.Controller;
 import com.villanova.courseplanner.Entity.Course;
 import com.villanova.courseplanner.Service.CourseService;
 import com.villanova.courseplanner.dto.CoursePrerequisiteDTO;
+import com.villanova.courseplanner.dto.EligibilityRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +51,11 @@ public class CourseController {
     public ResponseEntity<Map<String, Object>> getPrerequisiteTree(@PathVariable String courseCode) {
         Map<String, Object> tree = courseService.getPrerequisiteTree(courseCode.toUpperCase());
         return ResponseEntity.ok(tree);
+    }
+
+    @PostMapping("/eligibility")
+    public ResponseEntity<List<Course>> checkEligibility(@RequestBody EligibilityRequest request) {
+        return ResponseEntity.ok(courseService.checkEligibility(request.getCompleted()));
     }
 
 }

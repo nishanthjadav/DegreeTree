@@ -92,7 +92,7 @@ function App() {
               <p className={`transition-colors duration-300 ${
                 isDarkMode ? 'text-slate-400' : 'text-slate-600'
               }`}>
-                Connecting to Neo4j database...
+                Connecting to PostgreSQL database...
               </p>
             </div>
           </div>
@@ -186,14 +186,11 @@ function App() {
                         <span className="text-xs">2</span>
                       </div>
                       <div className="flex-1">
-                        <p><strong>Neo4j connection:</strong></p>
-                        <p>- Neo4j Browser: <span className={
-                          isDarkMode ? 'text-green-400' : 'text-green-600'
-                        }>http://localhost:7474/</span></p>
-                        <p>- Java connection URL: <span className={
+                        <p><strong>PostgreSQL connection:</strong></p>
+                        <p>- Default URL: <span className={
                           isDarkMode ? 'text-blue-400' : 'text-blue-600'
-                        }>bolt://localhost:7687</span></p>
-                        <p className="text-xs mt-1">The backend uses the bolt:// URL, not the HTTP interface</p>
+                        }>jdbc:postgresql://localhost:5432/degreetree</span></p>
+                        <p className="text-xs mt-1">Create the <code>degreetree</code> database and set credentials in application.properties</p>
                       </div>
                     </div>
                     <div className="flex items-center space-x-3">
@@ -212,8 +209,8 @@ function App() {
                 </div>
                 
                 <div className="flex space-x-4 justify-center">
-                  <button 
-                    onClick={() => window.location.reload()} 
+                  <button
+                    onClick={() => window.location.reload()}
                     className="btn-primary"
                   >
                     <svg className="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -221,18 +218,6 @@ function App() {
                     </svg>
                     Try Again
                   </button>
-                  
-                  <a 
-                    href="http://localhost:7474/" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="btn-secondary flex items-center"
-                  >
-                    <svg className="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                    </svg>
-                    Open Neo4j Browser
-                  </a>
                 </div>
               </div>
             </div>
